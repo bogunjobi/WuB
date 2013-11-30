@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".AddContacts" >
+
+    <TextView android:id="@+id/text1"
+         android:textSize="16sp"
+         android:textStyle="bold"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"/>
+
+     <TextView android:id="@+id/text2"
+         android:textSize="16sp"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"/>
+     
+     <TextView
+         android:id="@+id/tell_friend"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignParentRight="true"
+         android:layout_marginTop="10dp"
+         android:drawableLeft="@drawable/ic_action_share"
+         android:gravity="center"
+         android:text="@string/tell_friends"
+         android:textSize="16sp" 
+         android:clickable="true"
+         
+         />
+
+	<View
+	    android:id="@+id/separator"
+	    android:layout_width="fill_parent"
+	    android:layout_height="0.4dp"
+	    android:layout_alignParentRight="true"
+	    android:layout_below="@+id/tell_friend"
+	    android:layout_marginTop="14dp"
+	    android:background="@android:color/darker_gray"
+	    android:visibility="visible" />
+ 
+	<ListView
+	    android:id="@android:id/list"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignLeft="@+id/tell_friend"
+	    android:layout_below="@+id/tell_friend"
+	    android:layout_marginTop="16dp" >
+	</ListView>
+    
+</RelativeLayout>
