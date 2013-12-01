@@ -75,9 +75,9 @@ public class JSONParser {
 
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    is, "iso-8859-1"), 8);
+                    is, "utf-8"), 8);//iso-8859-1
             StringBuilder sb = new StringBuilder();
-            String line = null;
+            String line = null;  
             
             while ((line = reader.readLine()) != null) {
                 sb.append(line + "\n");
@@ -91,9 +91,9 @@ public class JSONParser {
 
         // try parse the string to a JSON object
         try {
-            jObj = new JSONObject(json);
+            jObj = new JSONObject(json.substring(json.indexOf("{"), json.lastIndexOf("}") + 1));
         } catch (JSONException e) {
-            Log.e("JSON Parser", "Error parsing data " + e.toString());
+            Log.e("JSON Parser", "Error parsing data" + e.toString());
         }
 
         // return JSON String

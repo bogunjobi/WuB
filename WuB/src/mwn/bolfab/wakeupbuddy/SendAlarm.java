@@ -1,14 +1,23 @@
 package mwn.bolfab.wakeupbuddy;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.util.Log;
@@ -24,19 +33,30 @@ public class SendAlarm extends Activity {
 	 
 	String chosenRingtone = null;
 	TextView rTone = null;
-	//private Object chosenRingtone;
+	TextView name;
+	TextView note;
+	TextView cTime; 
+	String contactName = null;
+    private static final String TAG_SUCCESS = "success";
+    private static final String TAG_USERPHONE = "user_phone";
+    private static final String TAG_BUDDYPHONE = "buddy_phone";
+    private static final String TAG_MSG = "message"; 
+    private static final String TAG_TIME = "time";
+    private static final String TAG_TONE = "ringtone_id";
+    private static final String url_alarm = "http://wubuddy.hopto.org/";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_send_alarm);
-		String contactName = getIntent().getStringExtra("cName");
+		contactName = getIntent().getStringExtra("cName");
 		String [] splitName = contactName.split(" ");
 		Log.d("Received Contact", contactName);
-		TextView name = (TextView)findViewById(R.id.contactName);
-		TextView note = (TextView)findViewById(R.id.note);
+		name = (TextView)findViewById(R.id.contactName);
+		note = (TextView)findViewById(R.id.note);
 		name.setText(contactName);
 		note.setHint("Wake up, " + splitName[0] + "!");
-		final TextView cTime = (TextView)findViewById(R.id.chooseTime);
+		cTime = (TextView)findViewById(R.id.chooseTime);
 		
 		
 		//Set alarm to current time by default. Display time in HH:MM am/pm format
@@ -131,6 +151,8 @@ public class SendAlarm extends Activity {
 		      this.finish();
 		      break;
 	    case R.id.action_send:
+	    	new SendAlarmTask().execute(Main.phoneNum, AddContacts.h.get(contactName), cTime.getText().toString(), 
+	    			rTone.getText().toString(), note.getText().toString());
 	      Toast.makeText(this, "Send selected", Toast.LENGTH_SHORT)
 	          .show();
 	      break;
@@ -140,5 +162,61 @@ public class SendAlarm extends Activity {
 	    }
 
 	    return true;
-	  } 
+	  }
+	
+	
+	
+
+	private class SendAlarmTask extends AsyncTask<String, String, String> {
+	    ProgressDialog pDialog;
+		 JSONParser jsonParser = new JSONParser();
+	        /**
+	         * Before starting background thread Show Progress Dialog
+	         * */
+	        @Override
+	        protected void onPreExecute() {
+	            super.onPreExecute();
+	            pDialog = new ProgressDialog(SendAlarm.this);
+	            pDialog.setMessage("Sending Alarm ...");
+	            pDialog.setIndeterminate(false);
+	            pDialog.setCancelable(true);
+	            pDialog.show();
+	        }
+	        
+	       protected String doInBackground(String... params) {
+	    	   String senderNumber = params[0];
+	    	   String receiverNumber = params[1];
+	    	   String time = params[2];
+	    	   String tone = params[3];
+	    	   String msg = params[4];
+	    	   List<NameValuePair> args = new ArrayList<NameValuePair>();
+	    	   args.add(new BasicNameValuePair(TAG_USERPHONE, senderNumber));
+	    	   args.add(new BasicNameValuePair(TAG_BUDDYPHONE, receiverNumber));
+	    	   args.add(new BasicNameValuePair(TAG_TIME, time));
+	    	   args.add(new BasicNameValuePair(TAG_TONE, tone));
+	    	   args.add(new BasicNameValuePair(TAG_MSG, msg));
+	    	   JSONObject json = jsonParser.makeHttpRequest(url_alarm, "POST", args);
+	    	   int success;
+            try {
+                 success = json.getInt(TAG_SUCCESS);
+ 
+                if (success == 1) {
+                    // successfully updated
+                    finish();
+                } else {
+                    // failed to update product
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }            
+
+			return null;	
+			}
+	        
+	        protected void onPostExecute(String file_url) {
+	            // dismiss the dialog once product updated
+	            pDialog.dismiss();
+	        }
+	}
+	
 }

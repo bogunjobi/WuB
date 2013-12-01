@@ -1,8 +1,11 @@
 package mwn.bolfab.wakeupbuddy;
 
 import java.io.File;
+import java.util.Calendar;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,8 +28,7 @@ public class Main extends Activity {
 	
 	// Fixed texts
 	public static final String FILENAME = "WUB_Contacts";
-	
-	//retrieve user phone number just in case
+	public static String phoneNum;
 	static final String TITLE = "Share Alarm Note";
 	static final String SHARE_TEXT = "To view this message, check out this awesome app "
 			+ "on the play store: " + Settings.LINK;
@@ -37,9 +39,18 @@ public class Main extends Activity {
 		setContentView(R.layout.main);
 		SharedPreferences prefs = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
 		String userInfo[] = {prefs.getString("Name", null), prefs.getString("Phone", null)};
-			
+		phoneNum = userInfo[1];
 		
-		//startService(new Intent(Main.this, CheckDB.class));
+		//start service
+		Intent i = new Intent(Main.this, PollDatabase.class);
+		Calendar cal = Calendar.getInstance();
+		PendingIntent pintent = PendingIntent.getService(Main.this, 0, i, 0);
+		AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+		// Start every 60 seconds
+		alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60*1000, pintent); 
+		i.putExtra("Phone", userInfo[1]);
+		startService(i);
+		
 		// find UI elements defined in xml
 		layout = (LinearLayout) findViewById(R.id.LinearLayout1);
 		table[0][0] = (Button) this.findViewById(R.id.b00);

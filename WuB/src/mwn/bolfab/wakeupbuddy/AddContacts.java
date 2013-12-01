@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.ListActivity;
@@ -29,7 +30,7 @@ import android.widget.Toast;
 public class AddContacts extends ListActivity {
 	//public static int contactCount = 0;	//this maintains a count of all the contacts added by the user. Should be obtained dynamically in the onCreate() of the main function.
 
-	
+	public static HashMap<String, String> h = new HashMap<String, String>();
 	final String groupTitle = "WakeUpBuddy";
 	boolean groupExists = false;
 	String gE = "false";
@@ -49,7 +50,7 @@ public class AddContacts extends ListActivity {
 		setListAdapter(new CheckboxAdapter(AddContacts.this, R.layout.check_list, lv_arr));
 		
 	} else {
-		createGroup();
+		createGroup(); //auto-populate with users from the database
 	}
 }
 
@@ -99,7 +100,8 @@ public class AddContacts extends ListActivity {
 	    }
 	}
 	
-		
+	
+	//auto-populate from database	
 	private void createGroup(){
 		groupExists = false;
 		ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
@@ -120,12 +122,7 @@ public class AddContacts extends ListActivity {
 		    }
 
 		}
-		/*ContentValues groupValues = new ContentValues();
-	    ContentResolver cr = this.getContentResolver();
-	    groupValues.put(ContactsContract.Groups.TITLE, groupTitle);
-	    groupValues.put(ContactsContract.Groups.GROUP_VISIBLE, 1);
-	    cr.insert(ContactsContract.Groups.CONTENT_URI, groupValues);*/
-	
+		
 	
 	private List<ContactData> getContactList(){
 		List<ContactData>contactList = new ArrayList<ContactData>();
@@ -211,13 +208,16 @@ public class AddContacts extends ListActivity {
 		
 	}
 
-	class ContactData {
+	static class ContactData {
 		String phone, name;
 		
 		private String getName(){
+			//populate the global HashMap
+			h.put(name,phone);
+			
 			return name;
 		}
-	
+		
 	}
 	
 	

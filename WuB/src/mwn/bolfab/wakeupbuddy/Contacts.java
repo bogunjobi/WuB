@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -21,7 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+
 public class Contacts extends Activity  {
 	//final String groupTitle = "WakeUpBuddy";
 	
@@ -69,6 +67,7 @@ public class Contacts extends Activity  {
 		 String cName = (String) parent.getItemAtPosition(position);
 		 Intent listIntent = new Intent(Contacts.this, SendAlarm.class);
         listIntent.putExtra("cName", cName);
+        //listIntent.putExtra("cNumber", phone);
         startActivity(listIntent);
 
 	   }
@@ -105,7 +104,7 @@ public class Contacts extends Activity  {
 	private void showDialog(){
 		AlertDialog.Builder builder = new AlertDialog.Builder(Contacts.this);
 		builder.setCancelable(false);
-		builder.setTitle("You currently have no contacts. Would you like to add some?");
+		builder.setTitle("You currently have no contacts. Would you like to interact with test users?");
 		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 		 
 		  public void onClick(DialogInterface dialog, int which) {
