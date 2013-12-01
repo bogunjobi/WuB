@@ -30,7 +30,7 @@ public class AddContacts extends ListActivity {
 	//public static int contactCount = 0;	//this maintains a count of all the contacts added by the user. Should be obtained dynamically in the onCreate() of the main function.
 
 	
-	final String groupTitle = "ASA";
+	final String groupTitle = "WakeUpBuddy";
 	boolean groupExists = false;
 	String gE = "false";
 	@Override
@@ -103,12 +103,14 @@ public class AddContacts extends ListActivity {
 	private void createGroup(){
 		groupExists = false;
 		ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
-
 		ops.add(ContentProviderOperation
-		            .newInsert(ContactsContract.Groups.CONTENT_URI)
-		            .withValue(ContactsContract.Groups.TITLE, groupTitle)
-		            .withValue(ContactsContract.Groups.GROUP_VISIBLE, 1)
-		            .withValue(ContactsContract.Groups.SHOULD_SYNC, 1).build());
+        		 .newInsert(ContactsContract.Groups.CONTENT_URI)
+                 .withValue(ContactsContract.Groups.TITLE, groupTitle)
+                 .withValue(ContactsContract.Groups.GROUP_VISIBLE, true)
+                 .withValue(ContactsContract.Groups.ACCOUNT_NAME, groupTitle)
+                 .withValue(ContactsContract.Groups.ACCOUNT_TYPE, groupTitle)
+                 .build());
+        
 		try {
 
 				getContentResolver().applyBatch(ContactsContract.AUTHORITY, ops);
@@ -197,11 +199,11 @@ public class AddContacts extends ListActivity {
 			e.printStackTrace();
 		}
 		if (reader != null){
-			String [] contacts = Contacts.readContacts(reader);
+			String [] contacts = RWFile.readContacts(reader);
 			ArrayList<String> al_contacts = new ArrayList<String>(Arrays.asList(contacts));			
 			ArrayList<String> al_strings = new ArrayList<String>(Arrays.asList(strings));
 			al_strings.removeAll(al_contacts);
-			String [] arr = al_strings.toArray(new String[al_strings  .size()]);;
+			String [] arr = al_strings.toArray(new String[al_strings.size()]);;
 			return arr; 
 		}
 		//if we're unable to read the added contacts, just use the list of contacts as is
@@ -221,12 +223,14 @@ public class AddContacts extends ListActivity {
 	
 	 public boolean onOptionsItemSelected(MenuItem item) {
 		    FileOutputStream fos = null; 
+		    ArrayList<String> selected = CheckboxAdapter.getSelectedString();
 		    switch (item.getItemId()) {		
 		    case R.id.action_cancel_contacts:
+		    	  selected.clear();
 			      AddContacts.this.finish();
 			      break;
 		    case R.id.action_add_contacts:
-		    	ArrayList<String> selected = CheckboxAdapter.getSelectedString();
+		    	//ArrayList<String> selected = CheckboxAdapter.getSelectedString();
 		    	String delimiter = ";";
 		    	if (selected.size() > 0){	//if there are options selected
 		    		

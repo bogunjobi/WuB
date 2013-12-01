@@ -10,6 +10,7 @@
     <string name="app_name">WakeUpBuddy</string>
     <string name="help_label">Help</string>
     <string name="placeholder">Large Text</string>
+    <string name="welcomemsg">Welcome to WakeUpBuddy!</string>
     <string name="ringtone">Ringtone</string>
     <string name="help_text">Welcome to WakeUpBuddy! If you have to wake up a deep sleeper once in a 
 		while then this app is for you. Otherwise, this app can be used as mere 
@@ -41,5 +42,11 @@
     <string name="action_cancel">Cancel</string>
     <string name="action_add_contacts">Add Contacts</string>
     <string name="action_add">Add</string>
+    <string name="title_activity_favorites">Favorites</string>
+    <string name="title_activity_registration">Registration</string>
+    <string name="button">Enter</string>
+    <string name="name">Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="title_activity_custom_context">CustomContext</string>
 
 </resources>

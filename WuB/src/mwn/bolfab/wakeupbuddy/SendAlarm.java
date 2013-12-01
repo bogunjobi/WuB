@@ -30,9 +30,12 @@ public class SendAlarm extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_send_alarm);
 		String contactName = getIntent().getStringExtra("cName");
+		String [] splitName = contactName.split(" ");
 		Log.d("Received Contact", contactName);
 		TextView name = (TextView)findViewById(R.id.contactName);
+		TextView note = (TextView)findViewById(R.id.note);
 		name.setText(contactName);
+		note.setHint("Wake up, " + splitName[0] + "!");
 		final TextView cTime = (TextView)findViewById(R.id.chooseTime);
 		
 		

@@ -7,15 +7,10 @@ import java.io.InputStreamReader;
 import android.os.Build;
 import android.os.Bundle;
 import android.annotation.TargetApi;
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,26 +19,16 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
 
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class Contacts extends FragmentActivity implements ActionBar.TabListener {
-	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
-
-	final String groupTitle = "ASA";
+public class Contacts extends Activity  {
+	//final String groupTitle = "WakeUpBuddy";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//setContentView(R.layout.contacts);
-		ActionBar bar = getActionBar();
-		bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		bar.addTab(bar.newTab().setText("Contacts").setTabListener(this), true);
-		bar.addTab(bar.newTab().setText("Recent").setTabListener(this), false);
-		bar.addTab(bar.newTab().setText("Favorites").setTabListener(this), false);
+		setContentView(R.layout.contacts);
 		
 		boolean contacts = getIntent().getBooleanExtra("contacts", false); 
 		//intent from the main page. This is true if there were contacts added previously
@@ -78,19 +63,6 @@ public class Contacts extends FragmentActivity implements ActionBar.TabListener 
 	}
 }
 
-	public void onRestoreInstanceState(Bundle savedInstanceState) {
-	    // Restore the previously serialized current tab position.
-	    if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
-	      getActionBar().setSelectedNavigationItem(savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
-	    }
-	  }
-	
-	public void onSaveInstanceState(Bundle outState) {
-	    // Serialize the current tab position.
-	    outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getActionBar()
-	        .getSelectedNavigationIndex());
-	  }
-
 
 	private OnItemClickListener listListener = new OnItemClickListener(){
 	 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -101,6 +73,9 @@ public class Contacts extends FragmentActivity implements ActionBar.TabListener 
 
 	   }
 	 };
+	 
+	
+	
 	public static String [] readContacts(BufferedReader r){
 		StringBuilder sb = new StringBuilder();
         try{
@@ -162,27 +137,6 @@ public class Contacts extends FragmentActivity implements ActionBar.TabListener 
 
 		    return true;
 		  }
-	@Override
-	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		 Fragment fragment = new DummySectionFragment();
-		    Bundle args = new Bundle();
-		    args.putInt(DummySectionFragment.ARG_SECTION_NUMBER,
-		        tab.getPosition() + 1);
-		    fragment.setArguments(args);
-		    getFragmentManager().beginTransaction()
-		        .replace(R.id.container, fragment).commit();
-
-		
-	}
-	@Override
-	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		
-	} 
+	
 	
 }

@@ -1,8 +1,11 @@
 package mwn.bolfab.wakeupbuddy;
 
 import java.io.File;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,15 +25,21 @@ public class Main extends Activity {
 	
 	// Fixed texts
 	public static final String FILENAME = "WUB_Contacts";
-	//static boolean CONTACTS = fileExistence(FILENAME);
+	
+	//retrieve user phone number just in case
 	static final String TITLE = "Share Alarm Note";
 	static final String SHARE_TEXT = "To view this message, check out this awesome app "
 			+ "on the play store: " + Settings.LINK;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState); 
 		setContentView(R.layout.main);
+		SharedPreferences prefs = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+		String userInfo[] = {prefs.getString("Name", null), prefs.getString("Phone", null)};
+			
+		
+		//startService(new Intent(Main.this, CheckDB.class));
 		// find UI elements defined in xml
 		layout = (LinearLayout) findViewById(R.id.LinearLayout1);
 		table[0][0] = (Button) this.findViewById(R.id.b00);
@@ -43,6 +52,9 @@ public class Main extends Activity {
 		table[0][1].setOnClickListener(myhandler);
 		table[1][0].setOnClickListener(myhandler);
 		table[1][1].setOnClickListener(myhandler);
+		
+		TextView tv = (TextView)findViewById(R.id.tv_welcome);
+		tv.setText("Welcome to WakeUpBuddy, " + userInfo[0] +"!");
 
 	}
 
@@ -119,4 +131,21 @@ public class Main extends Activity {
 		startActivity(Intent.createChooser(share_intent, "Share With"));
 	}
 
+/*	public String [] userInfo(){
+		//Context c = Main.this;
+		BufferedReader reader = null;
+		String [] contact = null;
+		try {
+			reader = new BufferedReader(new InputStreamReader
+					(getApplicationContext().openFileInput(Registration.CONTACTINFO)));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		if (reader != null){
+			contact = RWFile.readContacts(reader);
+			return contact; //return phone number
+	} 
+		return null;
+	}*/
 }
