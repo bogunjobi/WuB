@@ -98,7 +98,9 @@ public class Registration extends Activity {
 	        			
 	        String userName = username.getText().toString();
 	        String phoneNum = phone.getText().toString();
-			Log.d("what it is", userName + phoneNum);
+	       // phoneNum = phoneNum.replaceAll("(\\)-]", "");
+	        //phoneNum= phoneNum.replace(" ", "");
+	        Log.d("what it is", userName + phoneNum);
             params.add(new BasicNameValuePair("name", userName));
             params.add(new BasicNameValuePair("phone", phoneNum));            
            

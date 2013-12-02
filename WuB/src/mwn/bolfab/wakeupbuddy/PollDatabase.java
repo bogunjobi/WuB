@@ -15,6 +15,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.IBinder;
+import android.provider.AlarmClock;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -31,7 +32,7 @@ public class PollDatabase extends Service {
 	private static final String TAG_MESSAGE = "message";
 	
 	//test phone number
-	String phoneNum = "4445556666";
+	String phoneNum = "9546142545";
 	
 	public PollDatabase() {
 	}
@@ -45,11 +46,12 @@ public class PollDatabase extends Service {
 	
 
 	public int onStartCommand(Intent intent, int flags, int startID){
+		
+		//phoneNum = intent.getStringExtra("Phone");
 		Log.i("Phone", phoneNum);
-		//String phoneNum = intent.getStringExtra("Phone");
 		boolean alarmSet = false;
 		try {
-			alarmSet = new AlarmSet().execute().get();
+			alarmSet = new CheckAlarmSet().execute().get();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -69,16 +71,15 @@ public class PollDatabase extends Service {
 				e.printStackTrace();
 			}
 			if (alarmInfo!=null){
-			 Intent i = new Intent(getApplicationContext(), SetAlarms.class);
-			 i.putExtra("time", alarmInfo.get(0).get("time"));
-			 Log.i("time", alarmInfo.get(0).get("time"));
-			 i.putExtra("ringtone", alarmInfo.get(1).get("ringtone_id"));
-			 Log.i("ringtone", alarmInfo.get(1).get("ringtone_id"));
-			 i.putExtra("sender", alarmInfo.get(2).get("sender"));
-			 Log.i("sender", alarmInfo.get(2).get("sender"));
-			 i.putExtra("message", alarmInfo.get(3).get("message"));
-			 Log.i("message", alarmInfo.get(3).get("message"));
-			 getApplicationContext().startService(i);
+				String time = alarmInfo.get(0).get("time");
+				Log.i("time", time);
+				String tone = alarmInfo.get(1).get("ringtone_id");
+				Log.i("ringtone", tone);
+				String sender = alarmInfo.get(2).get("sender");
+				Log.i("sender", sender);
+				String message = alarmInfo.get(3).get("message");
+				Log.i("message", message);
+				new CreateAlarm().execute(time, tone, sender, message);
 			}else {
 				Log.i("alarmInfo", "null");
 			}
@@ -87,7 +88,7 @@ public class PollDatabase extends Service {
 		return Service.START_NOT_STICKY;
 	}
 
-	class AlarmSet extends AsyncTask<String, String, Boolean>{
+	class CheckAlarmSet extends AsyncTask<String, String, Boolean>{
 			protected Boolean doInBackground(String... args) {
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("phone", phoneNum));
@@ -109,21 +110,20 @@ public class PollDatabase extends Service {
 				}catch (JSONException e){
 					e.printStackTrace();
 				}
-				return false;
-		
-				
-		}
-
-				
+				return false;	
+			}				
 	}
 	
 	class UpdateDB extends AsyncTask<String, String, Boolean>{
 		protected Boolean doInBackground(String... args) {
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("phone", phoneNum));
+			params.add(new BasicNameValuePair("set_alarm", "0"));
 			Log.i("Phone in Async", phoneNum);
+			String url_updateDB = "http://wubuddy.hopto.org/update_alarm_status.php";
+			
 			// getting JSON string from URL
-			JSONObject json = jParser.makeHttpRequest(url_alarmSet, "GET", params);
+			JSONObject json = jParser.makeHttpRequest(url_updateDB , "POST", params);
 			
 			// Check your log cat for JSON response
 			Log.d("Alarm details: ", json.toString());
@@ -131,9 +131,7 @@ public class PollDatabase extends Service {
 			try {
 				// Checking for SUCCESS TAG
 				int success = json.getInt(TAG_SUCCESS);
-				String message = json.getString(TAG_MESSAGE);
 				if (success == 1) {
-					if (message.equals("1"))
 					return true;               
 				}
 			}catch (JSONException e){
@@ -145,33 +143,25 @@ public class PollDatabase extends Service {
 		
 }
 
-	class CreateAlarm extends AsyncTask<String, String, Boolean>{
-		protected Boolean doInBackground(String... args) {
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("phone", phoneNum));
-			Log.i("Phone in Async", phoneNum);
+	class CreateAlarm extends AsyncTask<String, String, String>{
+		protected String doInBackground(String... args) {
+			
+			String time = args[0];
+			//String ringtone = args[1];
+			String sender = args[2];
+			String message = args[3];
+			String [] splitTime = time.split(":"); 
 			// getting JSON string from URL
-			JSONObject json = jParser.makeHttpRequest(url_alarmSet, "GET", params);
-			
-			// Check your log cat for JSON response
-			Log.d("Alarm details: ", json.toString());
-
-			try {
-				// Checking for SUCCESS TAG
-				int success = json.getInt(TAG_SUCCESS);
-				String message = json.getString(TAG_MESSAGE);
-				if (success == 1) {
-					if (message.equals("1"))
-					return true;               
-				}
-			}catch (JSONException e){
-				e.printStackTrace();
-			}
-			return false;
-	
-			
+			Intent alarmIntent = new Intent(AlarmClock.ACTION_SET_ALARM);
+			alarmIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			alarmIntent.putExtra(AlarmClock.EXTRA_MESSAGE, "Message: "+message+ " from sender: "+sender);
+			alarmIntent.putExtra(AlarmClock.EXTRA_HOUR, splitTime[0]);
+			alarmIntent.putExtra(AlarmClock.EXTRA_MINUTES, splitTime[1]);
+			alarmIntent.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
+			//alarmIntent.putExtra(AlarmClock.EXTRA_RINGTONE, ringtone);
+			startActivity(alarmIntent);
+			return null;					
 	}
-
 			
 }
 

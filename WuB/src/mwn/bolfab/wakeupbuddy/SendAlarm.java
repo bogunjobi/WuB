@@ -1,8 +1,10 @@
 package mwn.bolfab.wakeupbuddy;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -43,7 +45,7 @@ public class SendAlarm extends Activity {
     private static final String TAG_MSG = "message"; 
     private static final String TAG_TIME = "time";
     private static final String TAG_TONE = "ringtone_id";
-    private static final String url_alarm = "http://wubuddy.hopto.org/";
+    private static final String url_alarm = "http://wubuddy.hopto.org/set_alarm_time";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,14 +82,15 @@ public class SendAlarm extends Activity {
                 public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 	mCurrentTime.set(Calendar.HOUR_OF_DAY, selectedHour);
                 	mCurrentTime.set(Calendar.MINUTE, selectedMinute);
+                	//SimpleDateFormat mSDF = new SimpleDateFormat("HH:mm");
                     SimpleDateFormat mSDF = new SimpleDateFormat("hh:mm a", Locale.US);
                     String time = mSDF.format(mCurrentTime.getTime());
 
                     cTime.setText( "Alarm Time\n"+time);
                 }
             }, hour, minute, false);//Yes 12 hour time
-            mTimePicker.setTitle("Select Time");
-            mTimePicker.show();
+            mTimePicker.setTitle("Select Time"); 
+            mTimePicker.show(); 
 
         	}
 		});
@@ -151,8 +154,23 @@ public class SendAlarm extends Activity {
 		      this.finish();
 		      break;
 	    case R.id.action_send:
-	    	new SendAlarmTask().execute(Main.phoneNum, AddContacts.h.get(contactName), cTime.getText().toString(), 
-	    			rTone.getText().toString(), note.getText().toString());
+	    	Log.i("Time", cTime.getText().toString());
+	    	String [] time = cTime.getText().toString().split("\n");
+	    	SimpleDateFormat parseFormat = new SimpleDateFormat("HH:mm");
+	    	SimpleDateFormat dispFormat = new SimpleDateFormat("hh:mm a");
+	    	String parsedTime = null;
+	    	try {
+				Date time24 = dispFormat.parse(time[1]);
+				parsedTime = parseFormat.format(time24);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	String msg = note.getText().toString();
+	    	Log.i("ParsedTime", parsedTime);
+	    	//NOTE: Passing ringtone name, not uri!!!
+	    	new SendAlarmTask().execute(Main.phoneNum, AddContacts.hashmap.get(contactName), parsedTime, 
+	    			rTone.getText().toString(), msg);
 	      Toast.makeText(this, "Send selected", Toast.LENGTH_SHORT)
 	          .show();
 	      break;
@@ -204,7 +222,8 @@ public class SendAlarm extends Activity {
                     // successfully updated
                     finish();
                 } else {
-                    // failed to update product
+                	Toast.makeText(SendAlarm.this, "WARNING: Alarm not sent", Toast.LENGTH_SHORT)
+      	          .show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

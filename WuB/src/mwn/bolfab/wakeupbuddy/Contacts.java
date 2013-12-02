@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 
 public class Contacts extends Activity  {
-	//final String groupTitle = "WakeUpBuddy";
+	final static String groupTitle = "WakeUpBuddy";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class Contacts extends Activity  {
 			Contacts.this.finish();
 		}
         
-	}
+	} 
 }
 
 

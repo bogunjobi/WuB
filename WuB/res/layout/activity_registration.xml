@@ -17,7 +17,7 @@
         android:layout_marginTop="45dp"
         android:text="@string/welcomemsg"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/gray" />
+       />
 
     <Button
         android:id="@+id/button1"
@@ -30,10 +30,10 @@
 
     <EditText
         android:id="@+id/username"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
+        android:gravity="left"
         android:layout_marginTop="34dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -44,11 +44,13 @@
 
     <EditText
         android:id="@+id/phone"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/username"
         android:layout_below="@+id/username"
         android:layout_marginTop="32dp"
+        android:gravity="left"
+        android:maxLength="14"
         android:ems="10"
         android:inputType="phone" 
         android:hint="@string/phone_number"/>

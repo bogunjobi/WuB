@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,17 +40,21 @@ public class Main extends Activity {
 		setContentView(R.layout.main);
 		SharedPreferences prefs = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
 		String userInfo[] = {prefs.getString("Name", null), prefs.getString("Phone", null)};
-		phoneNum = userInfo[1];
+		//phoneNum = userInfo[1];
+		phoneNum="9546142545";
+		//Log.i("Main Phone", phoneNum);
 		
 		//start service
+		while  (phoneNum == null); //wait until phone Number is populated
 		Intent i = new Intent(Main.this, PollDatabase.class);
 		Calendar cal = Calendar.getInstance();
 		PendingIntent pintent = PendingIntent.getService(Main.this, 0, i, 0);
 		AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 		// Start every 60 seconds
 		alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60*1000, pintent); 
-		i.putExtra("Phone", userInfo[1]);
+		i.putExtra("Phone", phoneNum);
 		startService(i);
+	
 		
 		// find UI elements defined in xml
 		layout = (LinearLayout) findViewById(R.id.LinearLayout1);

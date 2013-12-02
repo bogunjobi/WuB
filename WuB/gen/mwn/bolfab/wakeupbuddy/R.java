@@ -64,42 +64,43 @@ public final class R {
         public static final int square_yellow_light=0x7f020016;
     }
     public static final class id {
-        public static final int LinearLayout1=0x7f0b0010;
-        public static final int about=0x7f0b0020;
-        public static final int action_add_contacts=0x7f0b001c;
-        public static final int action_add_page=0x7f0b001d;
-        public static final int action_cancel=0x7f0b0023;
-        public static final int action_cancel_contacts=0x7f0b001b;
-        public static final int action_send=0x7f0b0024;
-        public static final int action_settings=0x7f0b001a;
-        public static final int b00=0x7f0b0013;
-        public static final int b01=0x7f0b0014;
-        public static final int b10=0x7f0b0016;
-        public static final int b11=0x7f0b0017;
+        public static final int LinearLayout1=0x7f0b0011;
+        public static final int about=0x7f0b0021;
+        public static final int action_add_contacts=0x7f0b001d;
+        public static final int action_add_page=0x7f0b001e;
+        public static final int action_cancel=0x7f0b0024;
+        public static final int action_cancel_contacts=0x7f0b001c;
+        public static final int action_send=0x7f0b0025;
+        public static final int action_settings=0x7f0b001b;
+        public static final int b00=0x7f0b0014;
+        public static final int b01=0x7f0b0015;
+        public static final int b10=0x7f0b0017;
+        public static final int b11=0x7f0b0018;
         public static final int button1=0x7f0b0005;
         public static final int checkbox1=0x7f0b000e;
         public static final int chooseTime=0x7f0b0009;
         public static final int contactName=0x7f0b0008;
-        public static final int help=0x7f0b0021;
+        public static final int empty=0x7f0b0010;
+        public static final int help=0x7f0b0022;
         public static final int listView1=0x7f0b000f;
         public static final int note=0x7f0b000d;
         public static final int phone=0x7f0b0007;
-        public static final int rate=0x7f0b001e;
+        public static final int rate=0x7f0b001f;
         public static final int ringtone=0x7f0b000a;
         public static final int separator=0x7f0b0003;
         public static final int separator1=0x7f0b000b;
-        public static final int settings=0x7f0b0022;
-        public static final int share=0x7f0b001f;
-        public static final int splash_image=0x7f0b0019;
-        public static final int tableRow1=0x7f0b0012;
-        public static final int tableRow2=0x7f0b0015;
-        public static final int tableRow3=0x7f0b0018;
+        public static final int settings=0x7f0b0023;
+        public static final int share=0x7f0b0020;
+        public static final int splash_image=0x7f0b001a;
+        public static final int tableRow1=0x7f0b0013;
+        public static final int tableRow2=0x7f0b0016;
+        public static final int tableRow3=0x7f0b0019;
         public static final int tell_friend=0x7f0b0002;
         public static final int text1=0x7f0b0000;
         public static final int text2=0x7f0b0001;
         public static final int textNote=0x7f0b000c;
         public static final int textView1=0x7f0b0004;
-        public static final int tv_welcome=0x7f0b0011;
+        public static final int tv_welcome=0x7f0b0012;
         public static final int username=0x7f0b0006;
     }
     public static final class layout {
@@ -111,12 +112,13 @@ public final class R {
         public static final int activity_send_alarm=0x7f030005;
         public static final int check_list=0x7f030006;
         public static final int contacts=0x7f030007;
-        public static final int help=0x7f030008;
-        public static final int main=0x7f030009;
-        public static final int recent=0x7f03000a;
-        public static final int record=0x7f03000b;
-        public static final int splash=0x7f03000c;
-        public static final int widget=0x7f03000d;
+        public static final int empty_list=0x7f030008;
+        public static final int help=0x7f030009;
+        public static final int main=0x7f03000a;
+        public static final int recent=0x7f03000b;
+        public static final int record=0x7f03000c;
+        public static final int splash=0x7f03000d;
+        public static final int widget=0x7f03000e;
     }
     public static final class menu {
         public static final int add_contacts=0x7f0a0000;
@@ -201,7 +203,8 @@ public final class R {
     
  API 11 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f09000c;
+        public static final int AppBaseTheme=0x7f09000d;
+        public static final int background_black=0x7f09000c;
         public static final int background_white=0x7f09000b;
         public static final int body_text=0x7f090007;
         public static final int body_text_black=0x7f090008;
