@@ -32,7 +32,7 @@ public class PollDatabase extends Service {
 	private static final String TAG_MESSAGE = "message";
 	
 	//test phone number
-	String phoneNum = "9546142545";
+	String phoneNum = Main.phoneNum;
 	
 	public PollDatabase() {
 	}

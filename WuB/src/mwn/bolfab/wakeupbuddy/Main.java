@@ -40,9 +40,8 @@ public class Main extends Activity {
 		setContentView(R.layout.main);
 		SharedPreferences prefs = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
 		String userInfo[] = {prefs.getString("Name", null), prefs.getString("Phone", null)};
-		//phoneNum = userInfo[1];
-		phoneNum="9546142545";
-		//Log.i("Main Phone", phoneNum);
+		phoneNum = userInfo[1];
+		
 		
 		//start service
 		while  (phoneNum == null); //wait until phone Number is populated

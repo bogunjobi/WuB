@@ -34,7 +34,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +43,6 @@ public class AddContacts extends ListActivity {
 	public static HashMap<String, String> hashmap = new HashMap<String, String>();
 	private static List<ContactData>contactList = new ArrayList<ContactData>();
 	JSONParser jParser = new JSONParser();
-	 
 	final String groupTitle = Contacts.groupTitle;
 	boolean groupExists = false;
 	String gE = "false";
@@ -417,6 +415,9 @@ public class AddContacts extends ListActivity {
 		 @Override
 		 protected String doInBackground(String... args) {
 			// Building Parameters
+			 
+			 //this ensures that the database is not read eveytime the asynctask is called
+			 	
 	            List<NameValuePair> params = new ArrayList<NameValuePair>();
 	            //ArrayList<ContactData> userList = new ArrayList<ContactData>();
 	            
@@ -437,7 +438,7 @@ public class AddContacts extends ListActivity {
 	                    // products found
 	                    // Getting Array of users
 	                    users = json.getJSONArray(TAG_USER);
-	 
+	                    
 	                    // looping through users
 	                    for (int i = 0; i < users.length(); i++) {
 	                    	ContactData data = new ContactData();

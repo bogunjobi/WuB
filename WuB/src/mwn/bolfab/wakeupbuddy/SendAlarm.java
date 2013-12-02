@@ -171,8 +171,7 @@ public class SendAlarm extends Activity {
 	    	//NOTE: Passing ringtone name, not uri!!!
 	    	new SendAlarmTask().execute(Main.phoneNum, AddContacts.hashmap.get(contactName), parsedTime, 
 	    			rTone.getText().toString(), msg);
-	      Toast.makeText(this, "Send selected", Toast.LENGTH_SHORT)
-	          .show();
+	      
 	      break;
 
 	    default:
