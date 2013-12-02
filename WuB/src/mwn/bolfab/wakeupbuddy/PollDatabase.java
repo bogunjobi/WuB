@@ -87,6 +87,7 @@ public class PollDatabase extends Service {
 				Log.i("time", time);
 				
 				new CreateAlarm().execute(time, tone, sender, message);
+				new UpdateDB().execute();
 			}else {
 				Log.i("alarmInfo", "null");
 			}
