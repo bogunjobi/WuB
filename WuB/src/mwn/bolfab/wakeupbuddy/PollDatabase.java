@@ -22,13 +22,16 @@ import android.widget.Toast;
 public class PollDatabase extends Service {
 	//private static final String TAG = "PollDatabase";
 	JSONParser jParser = new JSONParser();
-	private static String url_params = "http://wubuddy.hopto.org/user_buddy.php";
-	private static String url_alarmSet = "http://wubuddy.hopto.org/get_alarm";
+	private final static String url_params = "http://wubuddy.hopto.org/get_alarm_time.php";
+	private final static String url_alarmSet = "http://wubuddy.hopto.org/get_alarm_status";
+	private final static String url_updateDB = "http://wubuddy.hopto.org/update_alarm_status.php";
+	
 	private static final String TAG_SUCCESS = "success";
-	private static final String TAG_ALARM = "alarmSet";
+	private static final String TAG_ALARM = "users";
 	private static final String TAG_TIME = "time";
 	private static final String TAG_RINGTONE = "ringtone_id";
-	private static final String TAG_SENDER = "user_phone";
+	private static final String TAG_SENDER = "user_name";
+	//private static final String TAG_RECEIVER = "buddy_phone";
 	private static final String TAG_MESSAGE = "message";
 	
 	//test phone number
@@ -70,15 +73,19 @@ public class PollDatabase extends Service {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if (alarmInfo!=null){
+			if (alarmInfo!=null){				
+				String sender = alarmInfo.get(0).get("user_name");
+				Log.i("sender", sender);
+				
+				String message = alarmInfo.get(0).get("message");
+				Log.i("message", message);
+				
+				String tone = alarmInfo.get(0).get("ringtone_id");
+				Log.i("ringtone", tone);
+				
 				String time = alarmInfo.get(0).get("time");
 				Log.i("time", time);
-				String tone = alarmInfo.get(1).get("ringtone_id");
-				Log.i("ringtone", tone);
-				String sender = alarmInfo.get(2).get("sender");
-				Log.i("sender", sender);
-				String message = alarmInfo.get(3).get("message");
-				Log.i("message", message);
+				
 				new CreateAlarm().execute(time, tone, sender, message);
 			}else {
 				Log.i("alarmInfo", "null");
@@ -123,7 +130,6 @@ public class PollDatabase extends Service {
 			params.add(new BasicNameValuePair("phone", phoneNum));
 			params.add(new BasicNameValuePair("set_alarm", "0"));
 			Log.i("Phone in AsyncUDB", phoneNum);
-			String url_updateDB = "http://wubuddy.hopto.org/update_alarm_status.php";
 			
 			// getting JSON string from URL
 			JSONObject json = jParser.makeHttpRequest(url_updateDB , "POST", params);
@@ -152,6 +158,7 @@ public class PollDatabase extends Service {
 			String time = args[0];
 			//String ringtone = args[1];
 			String sender = args[2];
+			//String receipient = args[3];
 			String message = args[3];
 			String [] splitTime = time.split(":"); 
 			// getting JSON string from URL
@@ -175,7 +182,7 @@ public class PollDatabase extends Service {
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			HashMap<String, String> map = new HashMap<String, String>();
 				//alarmInfo.add(null);
-			params.add(new BasicNameValuePair("phone", phoneNum));
+			params.add(new BasicNameValuePair("buddy_phone", phoneNum));
 			JSONObject jsonParser = jParser.makeHttpRequest(url_params, "GET", params);
 			JSONObject alarm = null;
 			try {

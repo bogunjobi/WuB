@@ -41,6 +41,7 @@ public class SendAlarm extends Activity {
 	String contactName = null;
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_USERPHONE = "user_phone";
+    private static final String TAG_BUDDYNAME = "buddy_name";
     private static final String TAG_BUDDYPHONE = "buddy_phone";
     private static final String TAG_MSG = "message"; 
     private static final String TAG_TIME = "time";
@@ -169,7 +170,7 @@ public class SendAlarm extends Activity {
 	    	String msg = note.getText().toString();
 	    	Log.i("ParsedTime", parsedTime);
 	    	//NOTE: Passing ringtone name, not uri!!!
-	    	new SendAlarmTask().execute(Main.phoneNum, AddContacts.hashmap.get(contactName), parsedTime, 
+	    	new SendAlarmTask().execute(Main.phoneNum, contactName, AddContacts.hashmap.get(contactName), parsedTime, 
 	    			rTone.getText().toString(), msg);
 	      
 	      break;
@@ -202,12 +203,14 @@ public class SendAlarm extends Activity {
 	        
 	       protected String doInBackground(String... params) {
 	    	   String senderNumber = params[0];
-	    	   String receiverNumber = params[1];
-	    	   String time = params[2];
-	    	   String tone = params[3];
-	    	   String msg = params[4];
+	    	   String senderName = params[1];
+	    	   String receiverNumber = params[2];
+	    	   String time = params[3];
+	    	   String tone = params[4];
+	    	   String msg = params[5];
 	    	   List<NameValuePair> args = new ArrayList<NameValuePair>();
 	    	   args.add(new BasicNameValuePair(TAG_USERPHONE, senderNumber));
+	    	   args.add(new BasicNameValuePair(TAG_BUDDYNAME, senderName));
 	    	   args.add(new BasicNameValuePair(TAG_BUDDYPHONE, receiverNumber));
 	    	   args.add(new BasicNameValuePair(TAG_TIME, time));
 	    	   args.add(new BasicNameValuePair(TAG_TONE, tone));
