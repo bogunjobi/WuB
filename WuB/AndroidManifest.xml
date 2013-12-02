@@ -76,7 +76,7 @@
 
         <activity
             android:name="mwn.bolfab.wakeupbuddy.Registration"
-            android:label="@string/title_activity_registration" >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

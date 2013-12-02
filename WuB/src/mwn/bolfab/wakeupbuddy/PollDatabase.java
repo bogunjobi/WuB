@@ -42,7 +42,7 @@ public class PollDatabase extends Service {
 	
 	public void onCreate() {
 		super.onCreate();
-		Toast.makeText(this, "Service Created", Toast.LENGTH_SHORT).show();
+		
 		
 	}
 	
@@ -165,10 +165,10 @@ public class PollDatabase extends Service {
 			// getting JSON string from URL
 			Intent alarmIntent = new Intent(AlarmClock.ACTION_SET_ALARM);
 			alarmIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			alarmIntent.putExtra(AlarmClock.EXTRA_MESSAGE, "Message: "+message+ " from sender: "+sender);
+			alarmIntent.putExtra(AlarmClock.EXTRA_MESSAGE, "WakeUpBuddy alarm\n"+message+ " from "+sender); 
 			alarmIntent.putExtra(AlarmClock.EXTRA_HOUR, splitTime[0]);
 			alarmIntent.putExtra(AlarmClock.EXTRA_MINUTES, splitTime[1]);
-			alarmIntent.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
+			alarmIntent.putExtra(AlarmClock.EXTRA_SKIP_UI, true);  
 			//alarmIntent.putExtra(AlarmClock.EXTRA_RINGTONE, ringtone);
 			startActivity(alarmIntent);
 			return null;					

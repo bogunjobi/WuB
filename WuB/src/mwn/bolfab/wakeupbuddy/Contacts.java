@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,6 +63,15 @@ public class Contacts extends Activity  {
 }
 
 
+	//Override back button
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {      
+			startActivity(new Intent(Contacts.this, Main.class));
+			return true;   
+		}    
+		return super.onKeyDown(keyCode, event);
+	}
 	private OnItemClickListener listListener = new OnItemClickListener(){
 	 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		 String cName = (String) parent.getItemAtPosition(position);
