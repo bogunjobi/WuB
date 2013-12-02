@@ -2,29 +2,39 @@
 <resources>
 
     <string name="about_author_email">wakeupbuddy@gmail.com</string>
-    <string name="about_label">About</string>
+    <string name="about_label">About WakeUpBuddy</string>
     <string name="about_copyright">&#169;2012 by Bol Fab</string>
-    <string name="about_project_url">http://www.wakeUpBuddy.nonexistent.com</string>
-    <string name="about_text">WakeUpBuddy is a class project! Enjoy!! </string>
+    <string name="about_project_url">http://wubuddy.hopto.org</string>
+    <string name="about_text">WakeUpBuddy is a class project inspired by two Vanderbilt students. It follows from the simple
+        fact that college students tend to oversleep after \'working hard\' so one might need to wake another up through a phone
+        call at a specific time. But what happens if the person forgets to wake his or her sleeping buddy? This is where 
+        WakeUpBuddy was birthed. Simply remotely set an alarm on your buddy\'s phone which will be triggered at a specific time.
+        This saves you the trouble of forgetting to wake the person up. This is the first app of its kind which can be used for
+        really seriously waking one up or just for entertainment purposes.         
+          Enjoy!! </string>
     <string name="about_version">WakeUpBuddy v1.01</string>
     <string name="app_name">WakeUpBuddy</string>
-    <string name="help_label">Help</string>
+    <string name="help_label">WakeUpBuddy Help</string>
     <string name="placeholder">Large Text</string>
     <string name="welcomemsg">Welcome to WakeUpBuddy!</string>
     <string name="ringtone">Ringtone</string>
     <string name="help_text">Welcome to WakeUpBuddy! If you have to wake up a deep sleeper once in a 
-		while then this app is for you. Otherwise, this app can be used as mere 
-		entertainment. 
+		while then this app is for you. Otherwise, this app can be used as mere entertainment. Simply navigate to the
+		main screen and select CONTACTS. From here, you can add a user that exists in your default phone contact or you
+		can select a user from the list of users in the online wakeupbuddy database. After this, select any time and send. 
+		An extra fun part is the addition of a \'message box\' where you can leave message for any sleepy head you want to wake up. 
+		Finally, do not forget to select your customized ringtone for waking up anyone. If the same ringtone does not exist on the
+		end of the person to be awoken then the default ringtone for the person will be used.  
 		\nEnjoy this unique app, the first of its kind!!!
 		\n Thank you!</string>
     <string name="splash_desc">Simply shows the logo</string>
     <string name="rate_label">Rate App</string>
     <string name="settings_label">Settings</string>
     <string name="share_label">Share</string>
-    <string name="table_label00">Buddies</string>
-    <string name="table_label01">Settings</string>
-    <string name="table_label10">Add Buddy</string>
-    <string name="table_label11">Help</string>
+    <string name="table_label00">Contact</string>
+    <string name="table_label01">Customize</string>
+    <string name="table_label10">Recent</string>
+    <string name="table_label11">Record</string>
     <string name="title_activity_contacts">Contacts</string>
     <string name="title_activity_recent">Recent</string>
     <string name="title_activity_record">Record</string>
@@ -48,5 +58,6 @@
     <string name="name">Name</string>
     <string name="phone_number">Phone Number</string>
     <string name="title_activity_custom_context">CustomContext</string>
+    <string name="record">Opportunity to record personal ringtones coming soon!</string>
 
 </resources>
