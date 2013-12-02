@@ -41,7 +41,7 @@
             android:label="@string/title_activity_record" >
         </activity>
         <activity
-            android:name="mwn.bolfab.wakeupbuddy.Recent"
+            android:name="mwn.bolfab.wakeupbuddy.SettingsActivity"
             android:label="@string/title_activity_recent" >
         </activity>
         <activity
