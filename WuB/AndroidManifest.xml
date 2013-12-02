@@ -69,6 +69,8 @@
             android:label="@string/title_activity_favorites" >
         </activity>
 
+        
+
         <service
             android:name="mwn.bolfab.wakeupbuddy.CheckDB"
             android:enabled="true" >

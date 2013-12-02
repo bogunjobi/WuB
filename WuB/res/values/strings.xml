@@ -9,8 +9,7 @@
         fact that college students tend to oversleep after \'working hard\' so one might need to wake another up through a phone
         call at a specific time. But what happens if the person forgets to wake his or her sleeping buddy? This is where 
         WakeUpBuddy was birthed. Simply remotely set an alarm on your buddy\'s phone which will be triggered at a specific time.
-        This saves you the trouble of forgetting to wake the person up. This is the first app of its kind which can be used for
-        really seriously waking one up or just for entertainment purposes.         
+        This saves you the trouble of forgetting to wake the person up.      
           Enjoy!! </string>
     <string name="about_version">WakeUpBuddy v1.01</string>
     <string name="app_name">WakeUpBuddy</string>
@@ -18,32 +17,29 @@
     <string name="placeholder">Large Text</string>
     <string name="welcomemsg">Welcome to WakeUpBuddy!</string>
     <string name="ringtone">Ringtone</string>
-    <string name="help_text">Welcome to WakeUpBuddy! If you have to wake up a deep sleeper once in a 
-		while then this app is for you. Otherwise, this app can be used as mere entertainment. Simply navigate to the
-		main screen and select CONTACTS. From here, you can add a user that exists in your default phone contact or you
-		can select a user from the list of users in the online wakeupbuddy database. After this, select any time and send. 
-		An extra fun part is the addition of a \'message box\' where you can leave message for any sleepy head you want to wake up. 
-		Finally, do not forget to select your customized ringtone for waking up anyone. If the same ringtone does not exist on the
-		end of the person to be awoken then the default ringtone for the person will be used.  
+    <string name="help_text">Welcome to WakeUpBuddy! If you have ever had to wake up a deep sleeper, this app was created for you. To view contacts, click on buddies on the main screen.
+        From here, you can navigate to Add Contacts where you can select a user from the list of users in the online wakeupbuddy database. Once you have contacts, click on their name to open the send alarm option. 
+		An extra fun part is the addition of a \'message box\' where you can send a message to your buddy. 
+		Finally, do not forget to select your customized ringtone for waking up anyone. If the same ringtone does not exist on your buddy\'s phone, their default alarm tone will be used.  
 		\nEnjoy this unique app, the first of its kind!!!
 		\n Thank you!</string>
     <string name="splash_desc">Simply shows the logo</string>
     <string name="rate_label">Rate App</string>
     <string name="settings_label">Settings</string>
     <string name="share_label">Share</string>
-    <string name="table_label00">Contact</string>
-    <string name="table_label01">Customize</string>
-    <string name="table_label10">Recent</string>
-    <string name="table_label11">Record</string>
-    <string name="title_activity_contacts">Contacts</string>
-    <string name="title_activity_recent">Recent</string>
+    <string name="table_label00">Buddy</string>
+    <string name="table_label01">Settings</string>
+    <string name="table_label10">Add Buddy</string>
+    <string name="table_label11">Help</string>
+    <string name="title_activity_contacts">Buddies</string>
+    <string name="title_activity_recent">Settings</string>
     <string name="title_activity_record">Record</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
     <string name="title_activity_widget">Widget</string>
     <string name="title_activity_about">About</string>
     <string name="title_activity_help">Help</string>
     <string name="welcome_label">Welcome to WakeUpBuddy!</string>
-    <string name="title_activity_add_contacts">AddContacts</string>
+    <string name="title_activity_add_contacts">Add Buddies</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="tell_friends">Tell friends about WakeUpBuddy</string>

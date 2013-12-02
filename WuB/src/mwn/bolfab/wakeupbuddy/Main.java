@@ -83,7 +83,7 @@ public class Main extends Activity {
 				startActivity(i);
 				break;
 			case R.id.b01:
-				Intent its = new Intent(Main.this, Settings.class);
+				Intent its = new Intent(Main.this, SettingsActivity.class);
 				startActivity(its);
 				break;
 			case R.id.b10:

@@ -17,5 +17,5 @@ public class Settings extends PreferenceActivity {
 	static int can_play;
 	static final int PLAY_NOW = 0;
 	static final int DONT_PLAY = -1;
-	static final String LINK="www.MobileWirelessNetwork.edu";
+	static final String LINK="http://wubuddy.hopto.org";
 }
