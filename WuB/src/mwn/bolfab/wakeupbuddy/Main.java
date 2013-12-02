@@ -69,7 +69,7 @@ public class Main extends Activity {
 		table[1][1].setOnClickListener(myhandler);
 		
 		TextView tv = (TextView)findViewById(R.id.tv_welcome);
-		tv.setText("Welcome to WakeUpBuddy, " + userInfo[0] +"!");
+		tv.setText("Welcome, " + userInfo[0] +"!");
 
 	}
 
@@ -83,10 +83,16 @@ public class Main extends Activity {
 				startActivity(i);
 				break;
 			case R.id.b01:
+				Intent its = new Intent(Main.this, Settings.class);
+				startActivity(its);
 				break;
 			case R.id.b10:
+				Intent intent = new Intent(Main.this, AddContacts.class);
+				startActivity(intent);
 				break;
 			case R.id.b11:
+				Intent it = new Intent(Main.this, Help.class);
+				startActivity(it);
 				break;
 			}
 		}

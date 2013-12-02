@@ -21,10 +21,10 @@
     <string name="rate_label">Rate App</string>
     <string name="settings_label">Settings</string>
     <string name="share_label">Share</string>
-    <string name="table_label00">Contact</string>
-    <string name="table_label01">Customize</string>
-    <string name="table_label10">Recent</string>
-    <string name="table_label11">Record</string>
+    <string name="table_label00">Buddies</string>
+    <string name="table_label01">Settings</string>
+    <string name="table_label10">Add Buddy</string>
+    <string name="table_label11">Help</string>
     <string name="title_activity_contacts">Contacts</string>
     <string name="title_activity_recent">Recent</string>
     <string name="title_activity_record">Record</string>

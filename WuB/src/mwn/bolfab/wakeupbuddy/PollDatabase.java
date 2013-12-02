@@ -28,7 +28,7 @@ public class PollDatabase extends Service {
 	private static final String TAG_ALARM = "alarmSet";
 	private static final String TAG_TIME = "time";
 	private static final String TAG_RINGTONE = "ringtone_id";
-	private static final String TAG_SENDER = "sender";
+	private static final String TAG_SENDER = "user_phone";
 	private static final String TAG_MESSAGE = "message";
 	
 	//test phone number
@@ -48,7 +48,6 @@ public class PollDatabase extends Service {
 	public int onStartCommand(Intent intent, int flags, int startID){
 		
 		//phoneNum = intent.getStringExtra("Phone");
-		Log.i("Phone", phoneNum);
 		boolean alarmSet = false;
 		try {
 			alarmSet = new CheckAlarmSet().execute().get();
@@ -60,7 +59,8 @@ public class PollDatabase extends Service {
 			e.printStackTrace();
 		}
 		if (alarmSet){
-			ArrayList<HashMap<String, String>> alarmInfo = null;
+			Log.i("AlarmSet", "true");
+			ArrayList<HashMap<String, String>> alarmInfo = new ArrayList<HashMap<String, String>>();
 			try {
 				alarmInfo = new GetAlarmParams().execute().get();
 			} catch (InterruptedException e) {
@@ -92,7 +92,7 @@ public class PollDatabase extends Service {
 			protected Boolean doInBackground(String... args) {
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("phone", phoneNum));
-				Log.i("Phone in Async", phoneNum);
+				Log.i("Phone in AsyncCAS", phoneNum);
 				// getting JSON string from URL
 				JSONObject json = jParser.makeHttpRequest(url_alarmSet, "GET", params);
 				
@@ -103,8 +103,11 @@ public class PollDatabase extends Service {
 					// Checking for SUCCESS TAG
 					int success = json.getInt(TAG_SUCCESS);
 					String message = json.getString(TAG_MESSAGE);
+					String [] msgString = message.split(":");
+					String[] msgValue = msgString[1].split("\"");
+					Log.i("Message", msgValue[1]);
 					if (success == 1) {
-						if (message.equals("1"))
+						if (msgValue[1].equals("1"))
 						return true;               
 					}
 				}catch (JSONException e){
@@ -119,7 +122,7 @@ public class PollDatabase extends Service {
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("phone", phoneNum));
 			params.add(new BasicNameValuePair("set_alarm", "0"));
-			Log.i("Phone in Async", phoneNum);
+			Log.i("Phone in AsyncUDB", phoneNum);
 			String url_updateDB = "http://wubuddy.hopto.org/update_alarm_status.php";
 			
 			// getting JSON string from URL
